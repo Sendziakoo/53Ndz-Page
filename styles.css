@@ -351,6 +351,7 @@ body {
 section {
     padding: 3rem 0;
     position: relative;
+    scroll-margin-top: 100px;
 }
 
 .section-header {
