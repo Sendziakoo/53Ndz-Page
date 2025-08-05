@@ -931,6 +931,19 @@ class SimpleAudioManager {
 // Initialize Audio Manager
 let audioManager;
 
+// Seconds alive counter
+function updateSecondsAlive() {
+    const birthDate = new Date(2009, 4, 26); // May 26, 2009 (month is 0-indexed)
+    const now = new Date();
+    const secondsAlive = Math.floor((now - birthDate) / 1000);
+    
+    const secondsElement = document.getElementById('seconds-alive');
+    if (secondsElement) {
+        // Format the number with thousands separators
+        secondsElement.textContent = secondsAlive.toLocaleString();
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Lanyard connection
@@ -938,6 +951,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize Audio Manager
     audioManager = new SimpleAudioManager();
+
+    // Start the seconds alive counter
+    updateSecondsAlive();
+    setInterval(updateSecondsAlive, 1000); // Update every second
 
     // Funkcja do uruchomienia muzyki
     function enableMusicOnInteraction() {
