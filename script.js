@@ -606,6 +606,7 @@ function updateDiscordProfile() {
         let playingText = 'Not playing anything';
         if (discordData.activities && discordData.activities.length > 0) {
             const activity = discordData.activities[0];
+            const activitydetails = discordData.activities[1];
             if (activity.type === 0) { // Playing
                 playingText = `Playing: ${activity.name}`;
                 if (activity.details) {
@@ -618,7 +619,12 @@ function updateDiscordProfile() {
             } else if (activity.type === 3) { // Watching
                 playingText = `Watching: ${activity.name}`;
             } else if (activity.type === 4) { // Custom
-                playingText = 'I don\'t feel like doing anything';
+                if(activitydetails){
+                    playingText = "Playing " + activitydetails.name;
+                }else {
+                    playingText = 'Not doing anything atm';
+                }
+                
             } else if (activity.type === 5) { // Competing
                 playingText = `Competing in: ${activity.name}`;
             }
@@ -660,7 +666,7 @@ function updateDiscordProfile() {
     // Update avatar if available
     const avatarElement = document.querySelector('.discord-avatar');
     if (avatarElement && discordData.discord_user?.avatar) {
-        const avatarUrl = `https://cdn.discordapp.com/avatars/${discordData.discord_user.id}/${discordData.discord_user.avatar}.png`;
+        const avatarUrl = `https://cdn.discordapp.com/avatars/${discordData.discord_user.id}/${discordData.discord_user.avatar}.gif`;
         avatarElement.innerHTML = `<img src="${avatarUrl}" alt="Discord Avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                                    <i class="fab fa-discord" style="display: none;"></i>`;
     }
