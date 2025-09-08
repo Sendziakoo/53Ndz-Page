@@ -607,27 +607,12 @@ function updateDiscordProfile() {
         if (discordData.activities && discordData.activities.length > 0) {
             const activity = discordData.activities[0];
             const activitydetails = discordData.activities[1];
-            if (activity.type === 0) { // Playing
-                playingText = `Playing: ${activity.name}`;
-                if (activity.details) {
-                    playingText += ` - ${activity.details}`;
-                }
-            } else if (activity.type === 1) { // Streaming
-                playingText = `Streaming: ${activity.name}`;
-            } else if (activity.type === 2) { // Listening
-                playingText = `Listening to: ${activity.name}`;
-            } else if (activity.type === 3) { // Watching
-                playingText = `Watching: ${activity.name}`;
-            } else if (activity.type === 4) { // Custom
-                if(activitydetails){
-                    playingText = "Playing " + activitydetails.name;
-                }else {
-                    playingText = 'Not doing anything atm';
-                }
-                
-            } else if (activity.type === 5) { // Competing
-                playingText = `Competing in: ${activity.name}`;
-            }
+
+            if (activitydetails.type === 0) { // Custom
+                playingText = "Playing " + activitydetails.name;
+            }else if (activitydetails.type === 2) { // Custom
+                playingText = "Listening to " + activitydetails.name + " - "  + activitydetails.details;
+            }   
         }
         playingElement.textContent = playingText;
     }
