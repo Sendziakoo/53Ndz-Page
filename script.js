@@ -843,7 +843,7 @@ class SimpleAudioManager {
 
     setupClickListeners() {
         // Add click sound to all interactive elements
-        const clickableElements = document.querySelectorAll('button, .btn, .nav-link, .project-link, .social-links a, .feature-item');
+        const clickableElements = document.querySelectorAll('button, .btn, .nav-link, .project-link, .social-links a, .feature-item, .discord-profile, .project-card, .stat-item, .meta-card');
         
         clickableElements.forEach(element => {
             element.addEventListener('click', () => {
@@ -856,7 +856,7 @@ class SimpleAudioManager {
             mutations.forEach((mutation) => {
                 mutation.addedNodes.forEach((node) => {
                     if (node.nodeType === 1) { // Element node
-                        const newClickables = node.querySelectorAll ? node.querySelectorAll('button, .btn, .nav-link, .project-link, .social-links a, .feature-item') : [];
+                        const newClickables = node.querySelectorAll ? node.querySelectorAll('button, .btn, .nav-link, .project-link, .social-links a, .feature-item, .discord-profile, .project-card, .stat-item, .meta-card') : [];
                         newClickables.forEach(element => {
                             element.addEventListener('click', () => {
                                 this.playClickSound();

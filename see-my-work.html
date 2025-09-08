@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See My Work - 53Ndz</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        .projects-library {
+            padding: 100px 0;
+            min-height: 100vh;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: #00ffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .project-card {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 255, 255, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.1);
+        }
+        
+        .project-image {
+            height: 200px;
+            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .project-image .placeholder {
+            color: #666;
+            font-size: 3rem;
+        }
+        
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .project-link {
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            color: #000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .project-link:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-category {
+            color: #00ffff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-title {
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-description {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tech-tag {
+            background: rgba(255, 0, 255, 0.1);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            color: #ff00ff;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .project-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            color: #00ffff;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        
+        .search-bar {
+            max-width: 500px;
+            margin: 2rem auto;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 25px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+        
+        .search-input::placeholder {
+            color: #666;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00ffff;
+            font-size: 1.2rem;
+        }
+        
+        .no-results {
+            text-align: center;
+            color: #666;
+            font-size: 1.2rem;
+            margin: 3rem 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Back Button -->
+    <a href="AboutMe.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Main
+    </a>
+
+    <!-- Projects Library Section -->
+    <section class="projects-library">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">My Work Library</h1>
+                <div class="section-line"></div>
+                <p style="color: #ccc; text-align: center; margin-top: 1rem; font-size: 1.1rem;">
+                    A collection of my projects, experiments, and creations
+                </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search projects..." id="searchInput">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="game">Game Development</button>
+                <button class="filter-btn" data-filter="cm2">CM2 Projects</button>
+                <button class="filter-btn" data-filter="discord">Discord Bots</button>
+                <button class="filter-btn" data-filter="other">Other</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid" id="projectsGrid">
+                <!-- 7 Segment Array Clock -->
+                <div class="project-card" data-category="cm2" data-tags="logic gates roblox cm2js">
+                    <div class="project-image">
+                        <img src="7 Segment Array Clock.png" alt="7 Segment Array Clock">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="project.html?project=7-segment-clock" class="project-link" title="View Details">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a><!--
+                                <a href="#" class="project-link" title="View Code" onclick="showNotification('Code not available yet', 'info')">
+                                    <i class="fab fa-github"></i>
+                                </a>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">CM2 Project</div>
+                        <h3 class="project-title">7 Segment Array Clock</h3>
+                        <p class="project-description">
+                            A fully functional digital clock built using logic gates in CM2. 
+                            Features multiple display modes and got featured on the official CM2 Discord server!
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Logic Gates</span>
+                            <span class="tech-tag">CM2JS</span>
+                            <span class="tech-tag">Roblox</span>
+                        </div>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <div class="stat-value">Featured</div>
+                                <div class="stat-label">Status</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">Complex</div>
+                                <div class="stat-label">Difficulty</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Me Page -->
+                <div class="project-card" data-category="web" data-tags="portfolio website design">
+                    <div class="project-image">
+                        <img src="AboutMePage.png" alt="About Me Page">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="project.html?project=about-me-page" class="project-link" title="View Live">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="https://github.com/Sendziakoo/53Ndz-Page/blob/main/AboutMe.html" class="project-link" title="View Code">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">Web Development</div>
+                        <h3 class="project-title">This About Me Page</h3>
+                        <p class="project-description">
+                            A modern, animated portfolio website showcasing my skills and personality. 
+                            Features smooth animations, responsive design, and interactive elements.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Responsive</span>
+                        </div>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <div class="stat-value">2000+</div>
+                                <div class="stat-label">Lines</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">Modern</div>
+                                <div class="stat-label">Design</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discord AI Bot -->
+                <div class="project-card" data-category="discord" data-tags="ai bot discord">
+                    <div class="project-image">
+                        <img src="KaizdnesScreenshot.png" alt="Discord AI Bot">
+                        <div class="project-overlay">
+                            
+                            <div class="project-links">
+                                <a href="project.html?project=discord-bot" class="project-link" title="View Details">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <!-- <a href="#" class="project-link" title="View Code" onclick="showNotification('Code not available yet', 'info')">
+                                    <i class="fab fa-github"></i>
+                                </a>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">Discord Bot</div>
+                        <h3 class="project-title">Self Talking Discord AI Bot</h3>
+                        <p class="project-description">
+                            An AI-powered Discord bot that can hold conversations and respond to users. 
+                            Features custom personality and learning capabilities.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Discord.js</span>
+                            <span class="tech-tag">AI</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <div class="stat-value">Inactive</div>
+                                <div class="stat-label">Status</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">AI</div>
+                                <div class="stat-label">Type</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+
+            <div class="no-results hidden" id="noResults">
+                <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; color: #666;"></i>
+                <p>No projects found matching your search.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // Filter by category
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                currentFilter = button.dataset.filter;
+                filterProjects();
+            });
+        });
+
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value.toLowerCase();
+            filterProjects();
+        });
+
+        function filterProjects() {
+            let visibleCount = 0;
+            
+            projectCards.forEach(card => {
+                const category = card.dataset.category;
+                const tags = card.dataset.tags.toLowerCase();
+                const title = card.querySelector('.project-title').textContent.toLowerCase();
+                const description = card.querySelector('.project-description').textContent.toLowerCase();
+                
+                const matchesFilter = currentFilter === 'all' || category === currentFilter;
+                const matchesSearch = currentSearch === '' || 
+                    title.includes(currentSearch) || 
+                    description.includes(currentSearch) || 
+                    tags.includes(currentSearch);
+                
+                if (matchesFilter && matchesSearch) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            
+            // Show/hide no results message
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        // Initialize
+        filterProjects();
+        
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

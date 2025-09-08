@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get To Know Me - 53Ndz</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        .personal-info {
+            padding: 100px 0;
+            min-height: 100vh;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .info-card {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.1);
+        }
+        
+        .info-card h3 {
+            color: #00ffff;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .info-card p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+        
+        .hobbies-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .hobbies-list li {
+            color: #ccc;
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .hobbies-list li::before {
+            content: "▶";
+            color: #00ffff;
+            position: absolute;
+            left: 0;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #00ffff, #ff00ff);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 2rem 0;
+            width: 45%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 55%;
+        }
+        
+        .timeline-content {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -20px;
+            border-left-color: rgba(0, 255, 255, 0.2);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -20px;
+            border-right-color: rgba(0, 255, 255, 0.2);
+        }
+        
+        .timeline-year {
+            color: #00ffff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-title {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-description {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .fun-facts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .fact-card {
+            background: rgba(255, 0, 255, 0.05);
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .fact-card:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 0, 255, 0.4);
+        }
+        
+        .fact-icon {
+            font-size: 2rem;
+            color: #ff00ff;
+            margin-bottom: 1rem;
+        }
+        
+        .fact-text {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                width: calc(100% - 60px);
+                left: 40px !important;
+            }
+            
+            .timeline-content::before {
+                left: -20px !important;
+                border-right-color: rgba(0, 255, 255, 0.2) !important;
+                border-left-color: transparent !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Back Button -->
+    <a href="AboutMe.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Main
+    </a>
+
+    <!-- Personal Information Section -->
+    <section class="personal-info">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Get To Know Me</h1>
+                <div class="section-line"></div>
+                <p style="color: #ccc; text-align: center; margin-top: 1rem; font-size: 1.1rem;">
+                    A deeper dive into who I am, what I love, and what makes me tick
+                </p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-user"></i> About Me</h3>
+                    <p>
+                        Hey there! I'm 53Ndz, a high school student from Poland who's absolutely 
+                        passionate about coding and gaming. I spend most of my time either 
+                        building cool stuff with code or exploring virtual worlds. There's 
+                        something magical about turning ideas into reality through programming.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3><i class="fas fa-code"></i> My Coding Journey</h3>
+                    <p>
+                        Started coding when I was 13 and never looked back. I love the challenge 
+                        of solving problems and creating something from nothing. Whether it's 
+                        web development, game development, or tinkering with microcontrollers, 
+                        I'm always excited to learn something new.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3><i class="fas fa-music"></i> Beyond the Screen</h3>
+                    <p>
+                        When I'm not coding or gaming, you'll find me on my stunt scooter or 
+                        playing the piano. There's something therapeutic about both - the 
+                        physical challenge of scooter tricks and the creative expression of music. 
+                        Balance is key, right?
+                    </p>
+                </div>
+            </div>
+
+            <!-- Timeline Section -->
+            <div style="margin-top: 4rem;">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">My Journey</h2>
+                <div class="timeline">
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2021</div>
+                            <div class="timeline-title">Roblox Studio</div>
+                            <div class="timeline-description">
+                                Discovered Game Development in Roblox Studio. Started making games and got hooked.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2022</div>
+                            <div class="timeline-title">Game Development</div>
+                            <div class="timeline-description">
+                                Continued my passion for making games. Got into python too, and made a few stuff, obviously bad and using AI.. But still
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2023</div>
+                            <div class="timeline-title">Highschool</div>
+                            <div class="timeline-description">
+                                Graduated Elementary and got into Highschool. Started learning more about computer science and programming. That's also where I learned about C++, and other languages. That's also where I started my journey with making websites! Oh, and I've picked up stunt scootering
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2024</div>
+                            <div class="timeline-title">Learning continues</div>
+                            <div class="timeline-description">
+                                Highschool. Highschool. Highschool...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2025</div>
+                            <div class="timeline-title">Big programming discovery?</div>
+                            <div class="timeline-description">
+                                I went to Spain with my friends, for an abroad internship school trip. (Erasmus+ for curious). We learned about Cursor. It's a fork of VSCode that uses AI to write code for you. I didn't exactly start using it then, but when I got back, I started using it and it changed my life. Truly, and I've bought a pro subscription for it too
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fun Facts Section -->
+            <div style="margin-top: 4rem;">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Fun Facts</h2>
+                <div class="fun-facts">
+                    <div class="fact-card">
+                        <div class="fact-icon"><i class="fas fa-moon"></i></div>
+                        <div class="fact-text">I'm a night owl - my best ideas come after 8 pm</div>
+                    </div>
+                    <div class="fact-card">
+                        <div class="fact-icon"><i class="fas fa-puzzle-piece"></i></div>
+                        <div class="fact-text">I love puzzles and brain teasers</div>
+                    </div>
+                    <div class="fact-card">
+                        <div class="fact-icon"><i class="fas fa-headphones"></i></div>
+                        <div class="fact-text">I code best with Lo-fi HipHop music playing</div>
+                    </div>
+                    <div class="fact-card">
+                        <div class="fact-icon"><i class="fas fa-rocket"></i></div>
+                        <div class="fact-text">I want to work in the Crypto industry one day</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
