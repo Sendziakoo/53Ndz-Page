@@ -1,6 +1,6 @@
-# 🚀 Futuristic Profile Website Template
+# 🚀 Futuristic Profile Website
 
-A stunning, modern portfolio website template with animated backgrounds, futuristic design elements, and smooth interactions. Perfect for developers, designers, and creative professionals looking to showcase their work with a cutting-edge aesthetic.
+A stunning, modern portfolio website with animated backgrounds, futuristic design elements, and smooth interactions. Perfect for developers, designers, and creative professionals looking to showcase their work with a cutting-edge aesthetic.
 
 ## ✨ Features
 
@@ -216,5 +216,6 @@ Feel free to submit issues, feature requests, or pull requests to improve this t
 If you need help customizing this template or have questions, feel free to reach out!
 
 ---
+
 
 **Made with ❤️ for the developer community** 
