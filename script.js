@@ -69,7 +69,7 @@ const statsObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             const statNumbers = entry.target.querySelectorAll('.stat-number');
             statNumbers.forEach((stat, index) => {
-                const finalValue = stat.textContent;
+                const finalValue = stat.getAttribute('data-final-value');
                 const isPercentage = finalValue.includes('%');
                 const numericValue = parseInt(finalValue.replace(/\D/g, ''));
                 
