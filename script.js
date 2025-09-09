@@ -601,21 +601,26 @@ function updateDiscordProfile() {
     }
     
     // Update playing status
-    const playingElement = document.querySelector('.playing-status');
-    if (playingElement) {
-        let playingText = 'Not playing anything';
-        if (discordData.activities && discordData.activities.length > 0) {
-            const activity = discordData.activities[0];
-            const activitydetails = discordData.activities[1];
+const playingElement = document.querySelector('.playing-status');
+if (playingElement) {
+    let playingText = 'Not playing anything';
 
-            if (activitydetails.type === 0) { // Custom
-                playingText = "Playing " + activitydetails.name;
-            }else if (activitydetails.type === 2) { // Custom
-                playingText = "Listening to " + activitydetails.name + " - "  + activitydetails.details;
-            }   
+    if (discordData.activities && discordData.activities.length > 0) {
+        // Znajdź aktywność typu "Playing" albo "Listening"
+        const activity = discordData.activities.find(a => a.type === 0 || a.type === 2);
+
+        if (activity) {
+            if (activity.type === 0) {
+                playingText = "Playing " + activity.name;
+            } else if (activity.type === 2) {
+                playingText = "Listening to " + activity.name + (activity.details ? " - " + activity.details : "");
+            }
         }
-        playingElement.textContent = playingText;
     }
+
+    playingElement.textContent = playingText;
+}
+
 
     // Update custom status with emoji
     const customStatusElement = document.querySelector('.custom-status');
